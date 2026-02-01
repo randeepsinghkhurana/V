@@ -10,7 +10,13 @@ body {
   margin: 0;
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
+
+  /* 👉 OPTION 1: Gradient background (default) */
   background: radial-gradient(circle at top, #ff4d6d, #7b001c);
+
+  /* 👉 OPTION 2: Image background (uncomment if using image) */
+  /* background: url("images/background.jpg") center/cover no-repeat fixed; */
+
   overflow: hidden;
   color: white;
 }
@@ -21,7 +27,6 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
 }
 
 .item {
@@ -41,10 +46,10 @@ body {
   position: relative;
   z-index: 10;
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 25px;
-  max-width: 500px;
+  max-width: 520px;
   margin: auto;
   top: 50%;
   transform: translateY(-50%);
@@ -54,13 +59,19 @@ body {
 
 h1 {
   font-size: 36px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .subtitle {
   font-size: 18px;
   opacity: 0.9;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+/* ===== FLAGS ===== */
+.flags {
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 /* ===== BUTTONS ===== */
@@ -89,7 +100,7 @@ button:hover {
   color: #333;
 }
 
-/* ===== HIDDEN SECTIONS ===== */
+/* ===== HIDDEN ===== */
 .hidden {
   display: none;
 }
@@ -102,21 +113,12 @@ button:hover {
   border-radius: 20px;
 }
 
-.place {
-  margin: 15px 0;
-}
-
 .place h3 {
-  margin-bottom: 5px;
   color: #ffe066;
+  margin-bottom: 5px;
 }
 
-.place p {
-  margin: 0;
-  font-size: 14px;
-}
-
-/* ===== HEART PULSE ===== */
+/* ===== HEART ===== */
 .heart {
   font-size: 50px;
   animation: pulse 1.5s infinite;
@@ -132,36 +134,34 @@ button:hover {
 
 <body>
 
-<!-- ===== FLOATING BALLOONS & HEARTS ===== -->
+<!-- ===== FLOATING ITEMS ===== -->
 <div class="floating">
-  <div class="item" style="left:5%; font-size:40px; animation-duration:12s;">🎈</div>
-  <div class="item" style="left:15%; font-size:30px; animation-duration:10s;">❤️</div>
-  <div class="item" style="left:25%; font-size:50px; animation-duration:14s;">💖</div>
-  <div class="item" style="left:35%; font-size:35px; animation-duration:11s;">🎈</div>
-  <div class="item" style="left:45%; font-size:45px; animation-duration:13s;">💕</div>
-  <div class="item" style="left:55%; font-size:30px; animation-duration:9s;">❤️</div>
-  <div class="item" style="left:65%; font-size:50px; animation-duration:15s;">🎈</div>
-  <div class="item" style="left:75%; font-size:40px; animation-duration:12s;">💘</div>
-  <div class="item" style="left:85%; font-size:35px; animation-duration:10s;">❤️</div>
+  <div class="item" style="left:10%; font-size:40px; animation-duration:12s;">❤️</div>
+  <div class="item" style="left:30%; font-size:50px; animation-duration:14s;">🎈</div>
+  <div class="item" style="left:50%; font-size:35px; animation-duration:11s;">💖</div>
+  <div class="item" style="left:70%; font-size:45px; animation-duration:13s;">💕</div>
+  <div class="item" style="left:90%; font-size:30px; animation-duration:10s;">❤️</div>
 </div>
 
 <!-- ===== MAIN CARD ===== -->
 <div class="card" id="mainCard">
   <div class="heart">❤️</div>
   <h1>Will you be my Valentine?</h1>
+
+  <div class="flags">
+    🇮🇳 🇻🇳 🇨🇦
+  </div>
+
   <p class="subtitle">I have something special planned… just for us 💕</p>
 
   <button class="yes" onclick="yesClick()">Yes 💖</button>
   <button class="no" onclick="noClick()">No 🙈</button>
 </div>
 
-<!-- ===== YES RESPONSE ===== -->
+<!-- ===== YES CARD ===== -->
 <div class="card hidden" id="yesCard">
   <h1>You said YES 💖</h1>
-  <p class="subtitle">
-    You just made my heart very happy.  
-    Let me spoil you this Valentine’s ❤️
-  </p>
+  <p class="subtitle">You just made my heart very happy ❤️</p>
 
   <div class="plan">
     <h2>Our Valentine Plan ✨</h2>
@@ -187,7 +187,7 @@ function yesClick() {
 }
 
 function noClick() {
-  alert("Nice try 😌 But that's not an option. You're my Valentine ❤️");
+  alert("Nice try 😌 But that's not an option ❤️");
 }
 </script>
 
