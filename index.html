@@ -12,6 +12,12 @@ body {
   background: radial-gradient(circle at top, #ff4d6d, #5a0014);
   overflow: hidden;
   color: white;
+  transition: filter 1.2s ease;
+}
+
+/* ===== BRIGHT MODE AFTER YES ===== */
+body.bright {
+  filter: brightness(1.15) saturate(1.2);
 }
 
 /* ===== CONFETTI ===== */
@@ -25,36 +31,14 @@ body {
 }
 
 @keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-  }
-}
-
-/* ===== FLOATING LOVE ===== */
-.floating {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.item {
-  position: absolute;
-  bottom: -120px;
-  animation: floatUp linear infinite;
-  opacity: 0.85;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(0) rotate(0deg); }
-  to { transform: translateY(-130vh) rotate(360deg); }
+  to { transform: translateY(110vh) rotate(720deg); }
 }
 
 /* ===== CARD ===== */
 .card {
   position: relative;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,0.15);
   backdrop-filter: blur(14px);
   padding: 45px;
   border-radius: 30px;
@@ -64,24 +48,32 @@ body {
   transform: translateY(-50%);
   text-align: center;
   box-shadow: 0 30px 70px rgba(0,0,0,0.45);
-  animation: fadeIn 2s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-45%); }
-  to { opacity: 1; transform: translateY(-50%); }
+h1 {
+  font-size: 38px;
+  margin-bottom: 5px;
 }
-
-h1 { font-size: 38px; margin-bottom: 5px; }
 
 .name {
   font-size: 22px;
   letter-spacing: 3px;
   margin-bottom: 20px;
   color: #ffe3ec;
+  transition: text-shadow 1s ease;
 }
 
-.subtitle { font-size: 18px; margin-bottom: 30px; }
+.name.glow {
+  text-shadow:
+    0 0 10px #ffd6e0,
+    0 0 25px #ff8fab,
+    0 0 40px #ff4d6d;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
 
 .heart {
   font-size: 55px;
@@ -89,9 +81,7 @@ h1 { font-size: 38px; margin-bottom: 5px; }
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
   50% { transform: scale(1.35); }
-  100% { transform: scale(1); }
 }
 
 /* ===== BUTTONS ===== */
@@ -123,23 +113,26 @@ button {
   border-radius: 22px;
 }
 
-.date { color: #ffe066; margin-bottom: 15px; }
+.date {
+  color: #ffe066;
+  margin-bottom: 15px;
+}
 
 .hidden { display: none; }
 
 /* ===== FIREWORKS ===== */
 .firework {
   position: fixed;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: pink;
   border-radius: 50%;
-  animation: explode 1.5s ease-out infinite;
+  animation: explode 1.6s ease-out;
 }
 
 @keyframes explode {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(6); opacity: 0; }
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(8); opacity: 0; }
 }
 </style>
 </head>
@@ -148,32 +141,19 @@ button {
 
 <!-- 🎵 MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c1b2e63c4.mp3?filename=romantic-piano-112191.mp3">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c1b2e63c4.mp3">
 </audio>
-
-<!-- 🎈 FLOATING HEARTS -->
-<div class="floating">
-<script>
-const icons=["❤️","💖","💘","💕","🎈","🌹"];
-for(let i=0;i<40;i++){
- document.write(`<div class="item" style="left:${Math.random()*100}%;
- font-size:${20+Math.random()*40}px;
- animation-duration:${8+Math.random()*10}s;">
- ${icons[Math.floor(Math.random()*icons.length)]}</div>`);
-}
-</script>
-</div>
 
 <!-- 🎉 CONFETTI -->
 <script>
 const colors=["#ffb3c6","#ffd166","#ffffff","#ff758f"];
 for(let i=0;i<80;i++){
- const c=document.createElement("div");
- c.className="confetti";
- c.style.left=Math.random()*100+"%";
- c.style.background=colors[Math.floor(Math.random()*colors.length)];
- c.style.animationDuration=5+Math.random()*5+"s";
- document.body.appendChild(c);
+  const c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"%";
+  c.style.background=colors[Math.floor(Math.random()*colors.length)];
+  c.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(c);
 }
 </script>
 
@@ -181,7 +161,7 @@ for(let i=0;i<80;i++){
 <div class="card" id="mainCard">
   <div class="heart">❤️</div>
   <h1>Will you be my Valentine?</h1>
-  <div class="name">THI THANH LAN NGUYEN</div>
+  <div class="name" id="lanName">LAN NGUYEN</div>
   <p class="subtitle">I have something unforgettable planned… just for us 💕</p>
 
   <button class="yes" onclick="yesClick()">Yes 💖</button>
@@ -191,7 +171,6 @@ for(let i=0;i<80;i++){
 <!-- 💖 YES CARD -->
 <div class="card hidden" id="yesCard">
   <h1>You said YES 💖</h1>
-  <p class="subtitle">You just made my heart incredibly happy ❤️</p>
 
   <div class="plan">
     <div class="date">📅 Saturday, February 14, 2026</div>
@@ -205,29 +184,37 @@ for(let i=0;i<80;i++){
 </div>
 
 <script>
-const noBtn=document.getElementById("noBtn");
+const noBtn = document.getElementById("noBtn");
+const card = document.getElementById("mainCard");
 
-noBtn.addEventListener("mouseenter",()=>{
- noBtn.style.left=Math.random()*(window.innerWidth-120)+"px";
- noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
+noBtn.addEventListener("mouseenter", () => {
+  const maxX = card.clientWidth - noBtn.offsetWidth;
+  const maxY = card.clientHeight - noBtn.offsetHeight;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 });
 
-noBtn.onclick=()=>alert("That’s not an option ❤️");
+noBtn.onclick = () => alert("That’s not an option ❤️");
 
-function yesClick(){
- document.getElementById("mainCard").classList.add("hidden");
- document.getElementById("yesCard").classList.remove("hidden");
- document.getElementById("bgMusic").play();
+function yesClick() {
+  document.body.classList.add("bright");
+  document.getElementById("lanName").classList.add("glow");
+  document.getElementById("mainCard").classList.add("hidden");
+  document.getElementById("yesCard").classList.remove("hidden");
+  document.getElementById("bgMusic").play();
 
- // Fireworks
- for(let i=0;i<20;i++){
-  const f=document.createElement("div");
-  f.className="firework";
-  f.style.left=Math.random()*100+"%";
-  f.style.top=Math.random()*100+"%";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1500);
- }
+  // FIREWORKS
+  for(let i=0;i<30;i++){
+    setTimeout(() => {
+      const f=document.createElement("div");
+      f.className="firework";
+      f.style.left=Math.random()*100+"%";
+      f.style.top=Math.random()*100+"%";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1600);
+    }, i*120);
+  }
 }
 </script>
 
