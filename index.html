@@ -5,23 +5,32 @@
 <title>Will You Be My Valentine? ❤️</title>
 
 <style>
-/* ===== GLOBAL ===== */
 body {
   margin: 0;
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
-
-  /* 👉 OPTION 1: Gradient background (default) */
-  background: radial-gradient(circle at top, #ff4d6d, #7b001c);
-
-  /* 👉 OPTION 2: Image background (uncomment if using image) */
-  /* background: url("images/background.jpg") center/cover no-repeat fixed; */
-
+  background: radial-gradient(circle at top, #ff4d6d, #5a0014);
   overflow: hidden;
   color: white;
 }
 
-/* ===== FLOATING BACKGROUND ===== */
+/* ===== CONFETTI ===== */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+/* ===== FLOATING LOVE ===== */
 .floating {
   position: absolute;
   width: 100%;
@@ -31,163 +40,194 @@ body {
 
 .item {
   position: absolute;
-  bottom: -100px;
+  bottom: -120px;
   animation: floatUp linear infinite;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 @keyframes floatUp {
-  from { transform: translateY(0); }
-  to { transform: translateY(-120vh); }
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-130vh) rotate(360deg); }
 }
 
-/* ===== MAIN CARD ===== */
+/* ===== CARD ===== */
 .card {
   position: relative;
   z-index: 10;
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  padding: 40px;
-  border-radius: 25px;
-  max-width: 520px;
+  backdrop-filter: blur(14px);
+  padding: 45px;
+  border-radius: 30px;
+  max-width: 540px;
   margin: auto;
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+  animation: fadeIn 2s ease;
 }
 
-h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-45%); }
+  to { opacity: 1; transform: translateY(-50%); }
 }
 
-.subtitle {
-  font-size: 18px;
-  opacity: 0.9;
+h1 { font-size: 38px; margin-bottom: 5px; }
+
+.name {
+  font-size: 22px;
+  letter-spacing: 3px;
   margin-bottom: 20px;
+  color: #ffe3ec;
 }
 
-/* ===== FLAGS ===== */
-.flags {
-  font-size: 32px;
-  margin-bottom: 20px;
+.subtitle { font-size: 18px; margin-bottom: 30px; }
+
+.heart {
+  font-size: 55px;
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
 }
 
 /* ===== BUTTONS ===== */
 button {
   font-size: 18px;
-  padding: 14px 28px;
-  margin: 10px;
-  border-radius: 40px;
+  padding: 15px 32px;
+  margin: 12px;
+  border-radius: 45px;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .yes {
-  background: linear-gradient(135deg, #ff758f, #ff4d6d);
+  background: linear-gradient(135deg, #ff8fa3, #ff4d6d);
   color: white;
 }
 
 .no {
-  background: #adb5bd;
+  background: #ced4da;
   color: #333;
+  position: absolute;
 }
 
-/* ===== HIDDEN ===== */
-.hidden {
-  display: none;
-}
-
-/* ===== DATE PLAN ===== */
+/* ===== PLAN ===== */
 .plan {
-  margin-top: 30px;
+  margin-top: 25px;
   background: rgba(255,255,255,0.2);
-  padding: 20px;
-  border-radius: 20px;
+  padding: 22px;
+  border-radius: 22px;
 }
 
-.place h3 {
-  color: #ffe066;
-  margin-bottom: 5px;
+.date { color: #ffe066; margin-bottom: 15px; }
+
+.hidden { display: none; }
+
+/* ===== FIREWORKS ===== */
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: pink;
+  border-radius: 50%;
+  animation: explode 1.5s ease-out infinite;
 }
 
-/* ===== HEART ===== */
-.heart {
-  font-size: 50px;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
+@keyframes explode {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(6); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== FLOATING ITEMS ===== -->
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c1b2e63c4.mp3?filename=romantic-piano-112191.mp3">
+</audio>
+
+<!-- 🎈 FLOATING HEARTS -->
 <div class="floating">
-  <div class="item" style="left:10%; font-size:40px; animation-duration:12s;">❤️</div>
-  <div class="item" style="left:30%; font-size:50px; animation-duration:14s;">🎈</div>
-  <div class="item" style="left:50%; font-size:35px; animation-duration:11s;">💖</div>
-  <div class="item" style="left:70%; font-size:45px; animation-duration:13s;">💕</div>
-  <div class="item" style="left:90%; font-size:30px; animation-duration:10s;">❤️</div>
+<script>
+const icons=["❤️","💖","💘","💕","🎈","🌹"];
+for(let i=0;i<40;i++){
+ document.write(`<div class="item" style="left:${Math.random()*100}%;
+ font-size:${20+Math.random()*40}px;
+ animation-duration:${8+Math.random()*10}s;">
+ ${icons[Math.floor(Math.random()*icons.length)]}</div>`);
+}
+</script>
 </div>
 
-<!-- ===== MAIN CARD ===== -->
+<!-- 🎉 CONFETTI -->
+<script>
+const colors=["#ffb3c6","#ffd166","#ffffff","#ff758f"];
+for(let i=0;i<80;i++){
+ const c=document.createElement("div");
+ c.className="confetti";
+ c.style.left=Math.random()*100+"%";
+ c.style.background=colors[Math.floor(Math.random()*colors.length)];
+ c.style.animationDuration=5+Math.random()*5+"s";
+ document.body.appendChild(c);
+}
+</script>
+
+<!-- 💌 MAIN CARD -->
 <div class="card" id="mainCard">
   <div class="heart">❤️</div>
   <h1>Will you be my Valentine?</h1>
-
-  <div class="flags">
-    🇮🇳 🇻🇳 🇨🇦
-  </div>
-
-  <p class="subtitle">I have something special planned… just for us 💕</p>
+  <div class="name">THI THANH LAN NGUYEN</div>
+  <p class="subtitle">I have something unforgettable planned… just for us 💕</p>
 
   <button class="yes" onclick="yesClick()">Yes 💖</button>
-  <button class="no" onclick="noClick()">No 🙈</button>
+  <button class="no" id="noBtn">No 🙈</button>
 </div>
 
-<!-- ===== YES CARD ===== -->
+<!-- 💖 YES CARD -->
 <div class="card hidden" id="yesCard">
   <h1>You said YES 💖</h1>
-  <p class="subtitle">You just made my heart very happy ❤️</p>
+  <p class="subtitle">You just made my heart incredibly happy ❤️</p>
 
   <div class="plan">
-    <h2>Our Valentine Plan ✨</h2>
+    <div class="date">📅 Saturday, February 14, 2026</div>
 
-    <div class="place">
-      <h3>🍷 Bar George</h3>
-      <p>1440 Drummond St, Montreal</p>
-    </div>
+    <h3>🍷 Bar George — 2:00 PM</h3>
+    <p>1440 Drummond St, Montreal</p>
 
-    <div class="place">
-      <h3>🍰 Machi Machi</h3>
-      <p>1241 Bishop St, Montreal</p>
-    </div>
+    <h3>🍰 Machi Machi — 3:30 PM</h3>
+    <p>1241 Bishop St, Montreal</p>
   </div>
-
-  <p style="margin-top:20px;">I can’t wait to spend this day with you ❤️</p>
 </div>
 
 <script>
-function yesClick() {
-  document.getElementById("mainCard").classList.add("hidden");
-  document.getElementById("yesCard").classList.remove("hidden");
-}
+const noBtn=document.getElementById("noBtn");
 
-function noClick() {
-  alert("Nice try 😌 But that's not an option ❤️");
+noBtn.addEventListener("mouseenter",()=>{
+ noBtn.style.left=Math.random()*(window.innerWidth-120)+"px";
+ noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
+});
+
+noBtn.onclick=()=>alert("That’s not an option ❤️");
+
+function yesClick(){
+ document.getElementById("mainCard").classList.add("hidden");
+ document.getElementById("yesCard").classList.remove("hidden");
+ document.getElementById("bgMusic").play();
+
+ // Fireworks
+ for(let i=0;i<20;i++){
+  const f=document.createElement("div");
+  f.className="firework";
+  f.style.left=Math.random()*100+"%";
+  f.style.top=Math.random()*100+"%";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1500);
+ }
 }
 </script>
 
